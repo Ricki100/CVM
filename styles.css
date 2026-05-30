@@ -187,7 +187,8 @@ a {
   background-image:
     linear-gradient(rgba(0, 15, 60, 0.58), rgba(0, 15, 60, 0.58)),
     var(--hero-image);
-  background-position: center, center, var(--hero-position, center);
+  background-position: center, var(--hero-position, center);
+  background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
 }
