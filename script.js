@@ -2,6 +2,38 @@ const header = document.querySelector("[data-header]");
 const progress = document.querySelector(".scroll-progress");
 const revealItems = document.querySelectorAll(".reveal");
 const parallaxItems = document.querySelectorAll("[data-parallax]");
+const primaryNav = header?.querySelector(".nav-links");
+
+if (header && primaryNav) {
+  const menuToggle = document.createElement("button");
+  menuToggle.className = "menu-toggle";
+  menuToggle.type = "button";
+  menuToggle.setAttribute("aria-label", "Open navigation menu");
+  menuToggle.setAttribute("aria-expanded", "false");
+  menuToggle.innerHTML = "<span aria-hidden=\"true\"></span>";
+  header.insertBefore(menuToggle, header.querySelector(".nav-cta"));
+
+  function setMenuOpen(isOpen) {
+    header.classList.toggle("is-menu-open", isOpen);
+    document.body.classList.toggle("is-menu-open", isOpen);
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+  }
+
+  menuToggle.addEventListener("click", () => {
+    setMenuOpen(!header.classList.contains("is-menu-open"));
+  });
+
+  primaryNav.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setMenuOpen(false);
+    }
+  });
+}
 
 // Lerp for smooth parallax interpolation
 function lerp(a, b, t) {
